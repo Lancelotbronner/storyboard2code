@@ -12,5 +12,6 @@ import ArgumentParser
 		commandName: "storyboard2code",
 		subcommands: [
 			ConvertCommand.self,
+			DumpCommand.self,
 		])
 }

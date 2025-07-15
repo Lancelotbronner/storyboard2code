@@ -10,17 +10,17 @@ let package = Package(
     dependencies: [
 		.package(url: "https://github.com/apple/swift-argument-parser", from: "1.3.0"),
 		
-        .package(url: "https://github.com/watanabetoshinori/XMLParsing.git", from: "0.0.4"),
+        .package(url: "https://github.com/CoreOffice/XMLCoder.git", from: "0.17.1"),
         .package(url: "https://github.com/SwiftGen/StencilSwiftKit.git", from: "2.7.1"),
     ],
     targets: [
 		.target(name: "StoryboardModel", dependencies: [
-			"XMLParsing",
+			"XMLCoder",
 		]),
 		
 		.target(
 			name: "StoryboardConverter",
-			dependencies: ["XMLParsing", "StencilSwiftKit", "StoryboardModel"]),
+			dependencies: ["XMLCoder", "StencilSwiftKit", "StoryboardModel"]),
 		
         .executableTarget(
             name: "storyboard2code",

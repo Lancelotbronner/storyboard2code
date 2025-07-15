@@ -17,13 +17,13 @@ public enum CodeGenType: String {
 
 public class SwiftCodeGenerator: NSObject {
     
-    var document: Document!
+    var document: IBDocument!
     
     var codegen: CodeGenType = .class
     
     // MARK: - Initialize
     
-    public init(document: Document, codegen: CodeGenType) {
+    public init(document: IBDocument, codegen: CodeGenType) {
         super.init()
         self.document = document
         self.codegen = codegen

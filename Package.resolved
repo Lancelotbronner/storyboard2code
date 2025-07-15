@@ -46,12 +46,12 @@
       }
     },
     {
-      "identity" : "xmlparsing",
+      "identity" : "xmlcoder",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/watanabetoshinori/XMLParsing.git",
+      "location" : "https://github.com/CoreOffice/XMLCoder.git",
       "state" : {
-        "revision" : "2b202211533a9af468829ef5e85368ba6b066910",
-        "version" : "0.0.4"
+        "revision" : "b1e944cbd0ef33787b13f639a5418d55b3bed501",
+        "version" : "0.17.1"
       }
     }
   ],

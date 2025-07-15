@@ -7,16 +7,10 @@
 
 import Foundation
 
-public class Scene: Codable {
-    
-    // MARK: - Identity
-    
+public struct IBScene: Codable {
     public var sceneID: String
     
-    // MARK: - ViewController
-    
     public var viewController: ViewController?
-    
     public var tapGestureRecognizer: [TapGestureRecognizer]?
     
     // MARK: - Codable
@@ -37,7 +31,7 @@ public class Scene: Codable {
         case tapGestureRecognizer
     }
     
-    required public init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.sceneID = try container.decode(String.self, forKey: .sceneID)
         
