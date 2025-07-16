@@ -20,7 +20,7 @@ public struct IBDocument: Codable {
 	
 	public var dependencies: IBDependencies?
 	public var customFonts: IBCustomFont?
-	public var objects: IBObjectCollection?
+	public var objects: IBObjectCollection
 	public var scenes: [IBScene]
     public var resources: [IBImage]
     
@@ -54,11 +54,13 @@ public struct IBCustomFont: Codable {
 }
 
 public struct IBObjectCollection: Codable {
-	var values: [IBObject]
+	var values: [IBObject] = []
 	
 	public init(from decoder: any Decoder) throws {
-		let container = try decoder.singleValueContainer()
-		values = try container.decode([IBObject].self)
+		var container = try decoder.unkeyedContainer()
+		while !container.isAtEnd {
+			values.append(try container.decode(IBObject.self))
+		}
 	}
 	
 	public func encode(to encoder: any Encoder) throws {
