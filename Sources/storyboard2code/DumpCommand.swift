@@ -7,7 +7,7 @@
 
 import Foundation
 import ArgumentParser
-import XMLCoder
+import SwiftXML
 import StoryboardModel
 
 struct DumpCommand: AsyncParsableCommand {
@@ -23,7 +23,7 @@ struct DumpCommand: AsyncParsableCommand {
 		
 		let data = try Data(contentsOf: url)
 		let decoder = XMLDecoder()
-		let storyboard = try decoder.decode(IBDocument.self, from: data)
+		let storyboard = try decoder.decode(IBDocument.self, at: "document", from: data)
 		
 		dump(storyboard)
 	}

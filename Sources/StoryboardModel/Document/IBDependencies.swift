@@ -5,20 +5,29 @@
 //  Created by Christophe Bronner on 2025-07-15.
 //
 
-import XMLCoder
+import SwiftXML
 
-public struct IBDependencies: Codable {
-	var deployments: [IBDeployment]
-	var plugins: [IBPlugin]
+public struct IBDependencies: Codable, CustomReflectable, CustomStringConvertible {
+	@XMLChildren var deployments: [IBDeployment]
+	@XMLChildren var plugins: [IBPlugin]
 	
 	private enum CodingKeys: String, CodingKey {
 		case deployments = "deployment"
 		case plugins = "plugIn"
 	}
+	
+	public var customMirror: Mirror {
+		Mirror("\(Self.self)", unlabeledChildren: deployments.map(\.description) + plugins.map(\.description))
+	}
+	
+	public var description: String {
+		let c = deployments.count + plugins.count
+		return c == 1 ? "1 dependency" : "\(c) dependencies"
+	}
 }
 
 public struct IBDeployment: Codable, CustomStringConvertible {
-	@Attribute var identifier: String
+	@XMLAttribute var identifier: String
 	
 	public var description: String {
 		"deployment \(identifier)"
@@ -26,8 +35,8 @@ public struct IBDeployment: Codable, CustomStringConvertible {
 }
 
 public struct IBPlugin: Codable, CustomStringConvertible {
-	@Attribute var identifier: String
-	@Attribute var version: Int
+	@XMLAttribute var identifier: String
+	@XMLAttribute var version: Int
 	
 	public var description: String {
 		"\(identifier) v\(version)"

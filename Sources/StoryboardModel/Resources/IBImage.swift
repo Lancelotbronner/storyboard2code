@@ -8,7 +8,7 @@
 import Foundation
 
 public struct IBImage: Codable {
-    public var name: String
-    public var width: String?
-    public var height: String?
+	public var name: String
+	public var width: String?
+	public var height: String?
 }

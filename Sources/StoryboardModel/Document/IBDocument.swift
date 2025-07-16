@@ -5,47 +5,38 @@
 //  Created by Watanabe Toshinori on 11/26/18.
 //
 
-import XMLCoder
+import SwiftXML
 
 public struct IBDocument: Codable {
-	@Attribute var type: String?
-	@Attribute var version: String?
-	@Attribute var toolsVersion: Int?
-	@Attribute var targetRuntime: String
-	@Attribute var propertyAccessControl: String?
-	@Attribute var useAutoLayout: Bool?
-	@Attribute var useTraitCollections: Bool?
-	@Attribute var useSafeAreas: Bool?
-	@Attribute var colorMatched: Bool?
+	@XMLAttribute var type: String
+	@XMLAttribute var version: String
+	@XMLAttribute var toolsVersion: Int
+	@XMLAttribute var targetRuntime: String
+	@XMLAttribute var propertyAccessControl: String
+	@XMLAttribute var useAutolayout: Bool
+	@XMLAttribute var useTraitCollections: Bool
+	@XMLAttribute var useSafeAreas: Bool
+	@XMLAttribute var colorMatched: Bool
 	
-	public var dependencies: IBDependencies?
-	public var customFonts: IBCustomFont?
-	public var objects: IBObjectCollection
-	public var scenes: [IBScene]
-    public var resources: [IBImage]
-    
-    private enum CodingKeys: String, CodingKey {
-		case type
-		case version
-		case toolsVersion
-		case targetRuntime
-		case propertyAccessControl
-		case useAutoLayout
-		case useTraitCollections
-		case useSafeAreas
-		case colorMatched
-		
-		case dependencies
-		case customFonts
-		case objects
-        case scenes = "scene"
-        case resources = "resource"
-    }
+	public var dependencies = IBDependencies()
+	public var customFonts = IBCustomFont(key: "customFonts")
+	public var objects: [IBObject]
+	public var scenes: [IBScene]?
+//	public var resources: [IBImage]
 }
 
-public struct IBCustomFont: Codable {
-	@Attribute public var key: String
-	public var fonts: [IBFont]
+public struct IBCustomFont: Codable, CustomStringConvertible, CustomReflectable {
+	@XMLAttribute public var key: String
+	@XMLChildren public var fonts: [IBFont]
+	
+	public var customMirror: Mirror {
+		Mirror("\(Self.self)", unlabeledChildren: fonts)
+	}
+	
+	public var description: String {
+		let c = fonts.count
+		return c == 1 ? "1 font" : "\(c) fonts"
+	}
 	
 	private enum CodingKeys: String, CodingKey {
 		case key

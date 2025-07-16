@@ -8,7 +8,7 @@
 import ArgumentParser
 import StoryboardConverter
 import Foundation
-import XMLCoder
+import SwiftXML
 import StoryboardModel
 
 struct ConvertCommand: AsyncParsableCommand {
@@ -64,7 +64,7 @@ struct ConvertCommand: AsyncParsableCommand {
 			throw ValidationError("Expected storyboard file content to be UTF-8 encoded.")
 		}
 		
-		let document = try XMLDecoder().decode(IBDocument.self, from: data)
+		let document = try XMLDecoder().decode(IBDocument.self, at: "document", from: data)
 		
 		// step("generate_swift_code")
 		let code = SwiftCodeGenerator(document: document, codegen: codegen).generate()

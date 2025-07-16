@@ -5,35 +5,30 @@
 //  Created by Christophe Bronner on 2025-07-15.
 //
 
-import XMLCoder
+import SwiftXML
 
-public enum IBObject: Codable {
+public enum IBObject: Codable, XMLChoice {
 	case placeholder(IBPlaceholder)
 	case view(IBView)
-	
-	private enum CodingKeys: CodingKey, XMLChoiceCodingKey {
-		case placeholder
-		case view
-	}
-	
-	public init(from decoder: any Decoder) throws {
-		let container = try decoder.container(keyedBy: CodingKeys.self)
-		print(container.allKeys)
-		do {
-			self = .placeholder(try container.decode(IBPlaceholder.self, forKey: .placeholder))
-		} catch {
-			self = .view(try container.decode(IBView.self, forKey: .view))
-		}
-	}
+	case stackView(IBView, IBStackView)
 }
 
 public struct IBPlaceholder: Codable {
-	@Attribute public var placeholderIdentifier: String
-	@Attribute public var id: Int
-	@Attribute public var userLabel: String
-	@Attribute public var customClass: String
-	@Attribute public var customModule: String
-	@Attribute public var customModuleProvider: String
+	@XMLAttribute public var placeholderIdentifier: String
+	@XMLAttribute public var id: Int
+	@XMLAttribute public var userLabel: String?
+	@XMLAttribute public var customClass: String
+	@XMLAttribute public var customModule: String?
+	@XMLAttribute public var customModuleProvider: String?
 }
 
-public struct IBView: Codable {}
+public struct IBProperty<Value: Codable>: Codable {
+	@XMLAttribute public var key: String
+	public var value: Value
+	
+	public init(from decoder: any Decoder) throws {
+		var container = try decoder.container(keyedBy: CodingKeys.self)
+		_key = try container.decode(XMLAttribute<String>.self, forKey: .key)
+		value = try Value(from: decoder)
+	}
+}
