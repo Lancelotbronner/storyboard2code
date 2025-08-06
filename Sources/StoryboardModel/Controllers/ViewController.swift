@@ -51,7 +51,7 @@ public class ViewController: Codable {
     
     // MARK: - Connections
     
-    public var connections: [Connection]?
+    public var connections: [IBConnection]?
 
     // MARK: - Codable
     
@@ -97,16 +97,16 @@ public class ViewController: Codable {
         if container.contains(.connections) {
             let connectionsContainer = try container.nestedContainer(keyedBy: ConnectionsKeys.self, forKey: .connections)
 
-            var connections = [Connection]()
-            if let items = try connectionsContainer.decodeIfPresent([Outlet].self, forKey: .outlet) {
-                connections.append(contentsOf: items)
+            var connections = [IBConnection]()
+            if let items = try connectionsContainer.decodeIfPresent([IBOutlet].self, forKey: .outlet) {
+				connections.append(contentsOf: items.map(IBConnection.outlet))
             }
-            if let items = try connectionsContainer.decodeIfPresent([OutletCollection].self, forKey: .outletCollection) {
-                connections.append(contentsOf: items)
-            }
-            if let items = try connectionsContainer.decodeIfPresent([Segue].self, forKey: .segue) {
-                connections.append(contentsOf: items)
-            }
+//            if let items = try connectionsContainer.decodeIfPresent([IBOutletCollection].self, forKey: .outletCollection) {
+//                connections.append(contentsOf: items.map(IBOutletCollection.outletCollection))
+//            }
+//            if let items = try connectionsContainer.decodeIfPresent([IBSegue].self, forKey: .segue) {
+//                connections.append(contentsOf: items.map(IBSegue.segue))
+//            }
 
             self.connections = connections
         }
@@ -131,20 +131,20 @@ public class ViewController: Codable {
         if let connections = connections {
             var connectionsContainer = container.nestedContainer(keyedBy: ConnectionsKeys.self, forKey: .connections)
             
-            let outlets = connections.filter({ type(of: $0) == Outlet.self })
-            if outlets.isEmpty == false {
-                try connectionsContainer.encode(outlets, forKey: .outlet)
-            }
-
-            let outletCollections = connections.filter({ type(of: $0) == OutletCollection.self })
-            if outletCollections.isEmpty == false {
-                try connectionsContainer.encode(outletCollections, forKey: .outletCollection)
-            }
-
-            let segues = connections.filter({ type(of: $0) == Segue.self })
-            if segues.isEmpty == false {
-                try connectionsContainer.encode(segues, forKey: .segue)
-            }
+//            let outlets = connections.filter({ type(of: $0) == Outlet.self })
+//            if outlets.isEmpty == false {
+//                try connectionsContainer.encode(outlets, forKey: .outlet)
+//            }
+//
+//            let outletCollections = connections.filter({ type(of: $0) == OutletCollection.self })
+//            if outletCollections.isEmpty == false {
+//                try connectionsContainer.encode(outletCollections, forKey: .outletCollection)
+//            }
+//
+//            let segues = connections.filter({ type(of: $0) == Segue.self })
+//            if segues.isEmpty == false {
+//                try connectionsContainer.encode(segues, forKey: .segue)
+//            }
         }
     }
 

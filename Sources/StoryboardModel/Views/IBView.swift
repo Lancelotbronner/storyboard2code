@@ -15,10 +15,10 @@ public struct IBView: Codable {
 	@XMLAttribute public var customModule: String
 	@XMLAttribute public var customModuleProvider: String
 	
-	@XMLChildren public var rect: [IBProperty<IBRect>]
-	@XMLChildren public var autoresizingMask: [IBProperty<IBAutoresizingMask>]
-	@XMLChildren public var color: [IBProperty<IBAutoresizingMask>]
-	@XMLChildren public var freeformSimulatedSizeMetrics: [IBProperty<IBFreeformSimulatedSizeMetrics>]
+	@XMLElement public var rect: [IBProperty<IBRect>]
+	@XMLElement public var autoresizingMask: [IBProperty<IBAutoresizingMask>]
+	@XMLElement public var color: [IBProperty<IBAutoresizingMask>]
+	@XMLElement public var freeformSimulatedSizeMetrics: [IBProperty<IBFreeformSimulatedSizeMetrics>]
 	
 	public var constraints: [IBConstraint] = []
 	public var connections: [IBOutlet] = []

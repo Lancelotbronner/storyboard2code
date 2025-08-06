@@ -178,22 +178,22 @@ public class SwiftCodeExtension: Extension {
         // Returns outlet collection property names
         ext.registerFilter("outletcollection_properties") { (value: Any?) in
             if let viewController = value as? ViewController {
-                if let outletCollectiosn = viewController.connections?.filter({ ($0 as? OutletCollection) != nil }) as? [OutletCollection] {
-                    return outletCollectiosn.reduce(into: [String](), { (result, collection) in
-                        if let property = collection.property, result.contains(property) == false {
-                            result.append(property)
-                        }
-                    })
-                }
+//				if let outletCollectiosn = viewController.connections?.compactMap(\.outletCollection) {
+//                    return outletCollectiosn.reduce(into: [String](), { (result, collection) in
+//                        if let property = collection.property, result.contains(property) == false {
+//                            result.append(property)
+//                        }
+//                    })
+//                }
             }
             if let view = value as? View {
-                if let outletCollectiosn = view.connections?.filter({ ($0 as? OutletCollection) != nil }) as? [OutletCollection] {
-                    return outletCollectiosn.reduce(into: [String](), { (result, collection) in
-                        if let property = collection.property, result.contains(property) == false {
-                            result.append(property)
-                        }
-                    })
-                }
+//				if let outletCollectiosn = view.connections?.compactMap(\.outletCollection) {
+//                    return outletCollectiosn.reduce(into: [String](), { (result, collection) in
+//                        if let property = collection.property, result.contains(property) == false {
+//                            result.append(property)
+//                        }
+//                    })
+//                }
             }
             return nil
         }

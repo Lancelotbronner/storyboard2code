@@ -9,7 +9,7 @@ import SwiftXML
 
 public struct IBFont: Codable, CustomStringConvertible, CustomReflectable {
 	@XMLAttribute public var key: String
-	@XMLChildren public var families: [String]
+	@XMLElement public var families: [String]
 	
 	public var customMirror: Mirror {
 		Mirror("\(Self.self)", unlabeledChildren: families)

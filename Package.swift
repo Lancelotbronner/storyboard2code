@@ -3,19 +3,21 @@
 import PackageDescription
 
 let package = Package(
-    name: "storyboard2code",
+	name: "storyboard2code",
 	platforms: [
 		.macOS(.v13),
 	],
-    dependencies: [
+	dependencies: [
 		.package(url: "https://github.com/apple/swift-argument-parser", from: "1.3.0"),
 		
-        .package(url: "https://github.com/Lancelotbronner/swift-xml.git", branch: "main"),
-        .package(url: "https://github.com/SwiftGen/StencilSwiftKit.git", from: "2.7.1"),
-    ],
-    targets: [
+		.package(url: "https://github.com/Lancelotbronner/swift-xml.git", branch: "main"),
+		.package(url: "https://github.com/Lancelotbronner/swift-case-accessors", branch: "main"),
+		.package(url: "https://github.com/SwiftGen/StencilSwiftKit.git", from: "2.7.1"),
+	],
+	targets: [
 		.target(name: "StoryboardModel", dependencies: [
 			.product(name: "SwiftXML", package: "swift-xml"),
+			.product(name: "CaseAccessors", package: "swift-case-accessors"),
 		]),
 		
 		.target(
@@ -25,12 +27,12 @@ let package = Package(
 				"StencilSwiftKit",
 				"StoryboardModel"
 			]),
-		
-        .executableTarget(
-            name: "storyboard2code",
-            dependencies: [
+	
+		.executableTarget(
+			name: "storyboard2code",
+			dependencies: [
 				.product(name: "ArgumentParser", package: "swift-argument-parser"),
 				"StoryboardConverter",
 			]),
-    ]
+	]
 )

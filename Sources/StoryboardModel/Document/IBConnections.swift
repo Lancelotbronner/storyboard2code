@@ -7,6 +7,13 @@
 
 import SwiftXML
 
+public enum IBConnection: Codable, XMLChoice {
+	case outlet(IBOutlet)
+	case outletCollection(IBOutletCollection)
+	case action(IBAction)
+	case segue(IBSegue)
+}
+
 public struct IBOutlet: Codable {
 	@XMLAttribute public var id: String
 	@XMLAttribute public var property: String

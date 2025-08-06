@@ -8,8 +8,8 @@
 import SwiftXML
 
 public struct IBDependencies: Codable, CustomReflectable, CustomStringConvertible {
-	@XMLChildren var deployments: [IBDeployment]
-	@XMLChildren var plugins: [IBPlugin]
+	@XMLElement var deployments: [IBDeployment] = []
+	@XMLElement var plugins: [IBPlugin] = []
 	
 	private enum CodingKeys: String, CodingKey {
 		case deployments = "deployment"

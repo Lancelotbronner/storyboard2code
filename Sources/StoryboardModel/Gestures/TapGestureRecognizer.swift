@@ -11,7 +11,7 @@ public class TapGestureRecognizer: Codable {
     
     public var id: String
     
-    public var connections: [Connection]?
+    public var connections: [IBConnection]?
 
     // MARK: - Codable
     
@@ -31,12 +31,12 @@ public class TapGestureRecognizer: Codable {
         if container.contains(.connections) {
             let connectionsContainer = try container.nestedContainer(keyedBy: ConnectionsKeys.self, forKey: .connections)
             
-            var connections = [Connection]()
-            if let items = try connectionsContainer.decodeIfPresent([Action].self, forKey: .action) {
-                connections.append(contentsOf: items)
-            }
-            
-            self.connections = connections
+//            var connections = [Connection]()
+//            if let items = try connectionsContainer.decodeIfPresent([Action].self, forKey: .action) {
+//                connections.append(contentsOf: items)
+//            }
+//            
+//            self.connections = connections
         }
     }
     
@@ -47,10 +47,10 @@ public class TapGestureRecognizer: Codable {
         if let connections = connections {
             var connectionsContainer = container.nestedContainer(keyedBy: ConnectionsKeys.self, forKey: .connections)
             
-            let actions = connections.filter({ type(of: $0) == Action.self })
-            if actions.isEmpty == false {
-                try connectionsContainer.encode(actions, forKey: .action)
-            }
+//            let actions = connections.filter({ type(of: $0) == Action.self })
+//            if actions.isEmpty == false {
+//                try connectionsContainer.encode(actions, forKey: .action)
+//            }
         }
     }
 

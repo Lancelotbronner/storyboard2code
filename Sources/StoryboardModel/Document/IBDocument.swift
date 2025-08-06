@@ -27,7 +27,7 @@ public struct IBDocument: Codable {
 
 public struct IBCustomFont: Codable, CustomStringConvertible, CustomReflectable {
 	@XMLAttribute public var key: String
-	@XMLChildren public var fonts: [IBFont]
+	@XMLElement public var fonts: [IBFont] = []
 	
 	public var customMirror: Mirror {
 		Mirror("\(Self.self)", unlabeledChildren: fonts)

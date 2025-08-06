@@ -119,7 +119,7 @@ public class View: Codable {
 
     // MARK: - Connections
     
-    public var connections: [Connection]?
+    public var connections: [IBConnection]?
 
     // MARK: - Subviews
 
@@ -385,21 +385,21 @@ public class View: Codable {
         if container.contains(.connections) {
             let connectionsContainer = try container.nestedContainer(keyedBy: ConnectionsKeys.self, forKey: .connections)
             
-            var connections = [Connection]()
-            if let items = try connectionsContainer.decodeIfPresent([Outlet].self, forKey: .outlet) {
-                connections.append(contentsOf: items)
-            }
-            if let items = try connectionsContainer.decodeIfPresent([OutletCollection].self, forKey: .outletCollection) {
-                connections.append(contentsOf: items)
-            }
-            if let items = try connectionsContainer.decodeIfPresent([Segue].self, forKey: .segue) {
-                connections.append(contentsOf: items)
-            }
-            if let items = try connectionsContainer.decodeIfPresent([Action].self, forKey: .action) {
-                connections.append(contentsOf: items)
-            }
+//            var connections = [Connection]()
+//            if let items = try connectionsContainer.decodeIfPresent([Outlet].self, forKey: .outlet) {
+//                connections.append(contentsOf: items)
+//            }
+//            if let items = try connectionsContainer.decodeIfPresent([OutletCollection].self, forKey: .outletCollection) {
+//                connections.append(contentsOf: items)
+//            }
+//            if let items = try connectionsContainer.decodeIfPresent([Segue].self, forKey: .segue) {
+//                connections.append(contentsOf: items)
+//            }
+//            if let items = try connectionsContainer.decodeIfPresent([Action].self, forKey: .action) {
+//                connections.append(contentsOf: items)
+//            }
 
-            self.connections = connections
+//            self.connections = connections
         }
         
         if container.contains(.subviews) {
@@ -470,25 +470,25 @@ public class View: Codable {
         if let connections = connections {
             var connectionsContainer = container.nestedContainer(keyedBy: ConnectionsKeys.self, forKey: .connections)
             
-            let outlets = connections.filter({ type(of: $0) == Outlet.self })
-            if outlets.isEmpty == false {
-                try connectionsContainer.encode(outlets, forKey: .outlet)
-            }
-            
-            let outletCollections = connections.filter({ type(of: $0) == OutletCollection.self })
-            if outletCollections.isEmpty == false {
-                try connectionsContainer.encode(outletCollections, forKey: .outletCollection)
-            }
-            
-            let segues = connections.filter({ type(of: $0) == Segue.self })
-            if segues.isEmpty == false {
-                try connectionsContainer.encode(segues, forKey: .segue)
-            }
-
-            let actions = connections.filter({ type(of: $0) == Action.self })
-            if actions.isEmpty == false {
-                try connectionsContainer.encode(actions, forKey: .action)
-            }
+//            let outlets = connections.filter({ type(of: $0) == Outlet.self })
+//            if outlets.isEmpty == false {
+//                try connectionsContainer.encode(outlets, forKey: .outlet)
+//            }
+//            
+//            let outletCollections = connections.filter({ type(of: $0) == OutletCollection.self })
+//            if outletCollections.isEmpty == false {
+//                try connectionsContainer.encode(outletCollections, forKey: .outletCollection)
+//            }
+//            
+//            let segues = connections.filter({ type(of: $0) == Segue.self })
+//            if segues.isEmpty == false {
+//                try connectionsContainer.encode(segues, forKey: .segue)
+//            }
+//
+//            let actions = connections.filter({ type(of: $0) == Action.self })
+//            if actions.isEmpty == false {
+//                try connectionsContainer.encode(actions, forKey: .action)
+//            }
         }
 
         if let subviews = subviews {
